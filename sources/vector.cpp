@@ -54,9 +54,9 @@ std::size_t vector_t::capacity() const
 
 void vector_t::push_back(int value)
 {
+	size_++;
 	if(size_ > capacity_)
 		capacity_ *= 2;
-	size_++;
 	elements_[size_ - 1]=value;
 	return;
 }
