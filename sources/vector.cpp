@@ -7,94 +7,142 @@ vector_t::vector_t()
 {
 	size_ = 0;
 	capacity_ = 0;
+	elements_ = nullptr;
 }
 
 vector_t::vector_t(vector_t const & other)
 {
+	size_= other.size_;
+	capacity_ = other.capacity_;
         for(size_t i=0;i<size_;++i)
                 elements_[i]=other.elements_[i];
-}//dim=size
+}
 
 vector_t & vector_t::operator =(vector_t const & other)
 {
+	if (this->elements_ == other.elements_)
+	return *this;
 	if (this != &other)
         {
                 delete[] elements_;
-                for (size_t i=0; i <= size_; ++i)
-                        elements_[i]=other.elements_[i];
+		size_ = other.size_;
+	capacity_ = other.capacity_;
+	elements_ = new int [capacity_];
+                for (size_t i = 0; i <= size_; ++i)
+                        elements_[i] = other.elements_[i];
+		return *this;
         }
 	return *this;
 }
 
 bool vector_t::operator ==(vector_t const & other) const
 {
-	if(size_ != other.size_)
+	if (size_ != other.size_)
 		return false;
-	else
-		return true;
-	//return false;
-}
+	else {
+		for (size_t i = 0 ; i < size_; i++)
+		if (elements_[i] != other.elements_[i])
+			return false;
+	}
+	return true;
 
 vector_t::~vector_t()
 {
-	delete[] elements_;
+	if (elements_ != nullptr)
+	delete [] elements_;
+	size_ = 0;
+	capacity_ = 0;
 }
 
 std::size_t vector_t::size() const
 {
 	return size_;
-    //return 0;
 }
 
 std::size_t vector_t::capacity() const
 {
 	return capacity_;
-    //return 0;
 }
 
 void vector_t::push_back(int value)
 {
+	if ((capacity_ == size_) && (size_ !=0))
+	{
+	int *vector_copy = new int [capacity_ * 2];
+	capacity_ *= 2;
+	for (size_t i = 0; i< size_; i++)
+		vector_copy[i] = elements_[i];
 	size_++;
-	if(size_ > capacity_)
-		capacity_ *= 2;
-	elements_[size_ - 1]=value;
+	vector_copy[size_ - 1] = value;
+	delete [] elements_;
+	elements_ = new int [capacity_];
+	for (size_t i = 0; i < size_; i++)
+		elements_[i] = vector_copy[i];
+	delete [] vector_copy;
+	return;
+	}
+	if (size_ == 0)
+	{
+		size_ = 1;
+		elements_ = new int [1];
+		capacity_ = 1;
+		elements_[0] = value;
+		return;
+	}
+	size_++;
+	elements_ [size_ - 1] = value;
 	return;
 }
 
 void vector_t::pop_back()
 {
-	if(size_ != 0)
-	size_ -= 1;
-	else
+	if (size_==0)
+	return;
+	if (size_==1)
+	{
+		size_=0;
+		capacity_=1;
 		return;
-	if((4 * size_) == capacity_)
-		capacity_ /= 2;
-	
+	}
+	size_--;
+	if (capacity_ == (4 * size_))
+	{
+	int *vector_copy = new int [capacity_ / 2];
+	capacity_ /= 2;
+	for (size_t i = 0; i< size_; i++)
+		vector_copy[i] = elements_[i];
+	delete [] elements_;
+	elements_ = new int [capacity_];
+	for (size_t i = 0; i < size_; i++)
+		elements_[i] = vector_copy[i];
+	delete [] vector_copy;
+	return;
+	}
 }
 
 int & vector_t::operator [](std::size_t index)
 {
-	a = 1;
 	if (index <= size_)
-		return a; //return elements_[index];
+		return elements_[index];
         else
-               return a;
-	//return elements_[0];
+               return elements_[size_ - 1];
 }
 
 int vector_t::operator [](std::size_t index) const
 {
-	a = 1;
 	if (index <= size_)
-                return a;
-	return a;
+                return elements_[index];
+	else
+		return elements_[size_ - 1];
 }
 
 bool operator !=(vector_t const & lhs, vector_t const & rhs)
 {
-	if(lhs.size_ != rhs.size_)
-		return true;
-	else
+	if (lhs.size() != rhs.size()) 
 		return false;
+	else 
+		for (unsigned int i=0; i< lhs.size(); i++)
+		      if (lhs[i] !=rhs[i])
+			     return false;
 	return true;
 }
