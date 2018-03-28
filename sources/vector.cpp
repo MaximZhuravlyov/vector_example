@@ -77,7 +77,7 @@ int & vector_t::operator [](std::size_t index)
 	if (index <= size_)
                 return elements_[index];
         else
-               return 1;
+               return 0;
 	//return elements_[0];
 }
 
