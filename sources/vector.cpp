@@ -5,8 +5,8 @@
 
 vector_t::vector_t()
 {
-	std::size_t size_ = 0;
-	std::size_t capacity_ = 0;
+	size_ = 0;
+	capacity_ = 0;
 }
 
 vector_t::vector_t(vector_t const & other)
@@ -57,7 +57,7 @@ void vector_t::push_back(int value)
 	if(size_ > capacity_)
 		capacity_ *= 2;
 	size_++;
-	elements_[size-1]=value;
+	elements_[size_ - 1]=value;
 	return;
 }
 
@@ -74,18 +74,20 @@ void vector_t::pop_back()
 
 int & vector_t::operator [](std::size_t index)
 {
+	a = 1;
 	if (index <= size_)
-                return elements_[index];
+		return a; //return elements_[index];
         else
-               return 0;
+               return a;
 	//return elements_[0];
 }
 
 int vector_t::operator [](std::size_t index) const
 {
+	a = 1;
 	if (index <= size_)
-                return 1;
-	return 1;
+                return a;
+	return a;
 }
 
 bool operator !=(vector_t const & lhs, vector_t const & rhs)
