@@ -140,11 +140,12 @@ int vector_t::operator [](std::size_t index) const
 
 bool operator !=(vector_t const & lhs, vector_t const & rhs)
 {
-	if (lhs.size() != rhs.size()) 
-		return false;
-	else 
-		for (unsigned int i=0; i< lhs.size(); i++)
-		      if (lhs[i] !=rhs[i])
-			     return false;
-	return true;
+	bool flag=0;
+	if (lhs.size() != rhs.size())
+		flag=1;
+	else
+	         for (unsigned int i=0; i< lhs.size(); i++)
+			if (lhs[i] !=rhs[i])
+				flag =1;
+	return flag == 1 ? true:false;
 }
