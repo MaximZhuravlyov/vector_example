@@ -45,6 +45,7 @@ bool vector_t::operator ==(vector_t const & other) const
 			return false;
 	}
 	return true;
+}
 
 vector_t::~vector_t()
 {
