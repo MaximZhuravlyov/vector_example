@@ -38,12 +38,15 @@ vector_t & vector_t::operator =(vector_t const & other)
 
 bool vector_t::operator ==(vector_t const & other) const
 {
-	if (size_ != other.size_)
+	if (size_!=other.size_) 
 		return false;
-	else {
-		for (size_t i = 0 ; i < size_; i++)
-		if (elements_[i] != other.elements_[i])
-			return false;
+	else 
+	{
+		for (unsigned int i=0; i< size_; i++) 
+		{
+		      if (elements_[i] != other.elements_[i])
+			    return false;
+		}
 	}
 	return true;
 }
