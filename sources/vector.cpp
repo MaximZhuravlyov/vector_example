@@ -5,15 +5,16 @@
 
 vector_t::vector_t()
 {
-	size_ = 0;
-	capacity_ = 0;
 	elements_ = nullptr;
+	size_ = 0;
+	capacity_ = 0;	
 }
 
 vector_t::vector_t(vector_t const & other)
 {
 	size_= other.size_;
 	capacity_ = other.capacity_;
+	elements_ = new int [capacity_];
         for(size_t i=0;i<size_;++i)
                 elements_[i]=other.elements_[i];
 }
