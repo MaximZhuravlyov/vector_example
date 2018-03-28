@@ -5,8 +5,8 @@
 
 vector_t::vector_t()
 {
-	size_ = 0;
-	capacity_ = 0;
+	std::size_t size_ = 0;
+	std::size_t capacity_ = 0;
 }
 
 vector_t::vector_t(vector_t const & other)
@@ -90,7 +90,7 @@ int vector_t::operator [](std::size_t index) const
 
 bool operator !=(vector_t const & lhs, vector_t const & rhs)
 {
-	if(size_ != other.size_)
+	if(lhs.size_ != rhs.size_)
 		return true;
 	else
 		return false;
